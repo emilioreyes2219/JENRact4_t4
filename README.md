@@ -1,58 +1,281 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Actividad 4 - API REST con Laravel 12, Sanctum y CRUD
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Alumno
 
-## About Laravel
+**Jorge Emilio Núñez Reyes**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Repositorio
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+https://github.com/emilioreyes2219/JENRact4_t4
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+# Descripción
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Este proyecto consiste en el desarrollo de una API REST utilizando **Laravel 12** y **Laravel Sanctum** para la autenticación mediante tokens.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+La aplicación permite el registro e inicio de sesión de usuarios y la administración de productos mediante un CRUD completo. El proyecto fue desplegado en un VPS con Ubuntu utilizando Nginx y MySQL como servidor de base de datos.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+# Tecnologías utilizadas
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- Laravel 12
+- PHP 8.3
+- Laravel Sanctum
+- MySQL
+- Nginx
+- Composer
+- Git y GitHub
+- Bruno (para pruebas de la API)
+- Ubuntu VPS
 
-```bash
-composer require laravel/boost --dev
+---
 
-php artisan boost:install
+# Base de datos
+
+Nombre de la base de datos:
+
+```
+act4_api
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Tabla principal:
 
-## Contributing
+```
+productos
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Campos:
 
-## Code of Conduct
+| Campo | Tipo |
+|--------|------|
+| id | bigint |
+| nombre | string |
+| categoria | string |
+| precio | decimal |
+| stock | integer |
+| proveedor | string |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+# Autenticación
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+La autenticación se realiza mediante **Laravel Sanctum**, utilizando tokens Bearer.
 
-## License
+Después de iniciar sesión, el token obtenido debe enviarse en el encabezado:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+Authorization: Bearer TU_TOKEN
+```
+
+---
+
+# Endpoints de la API
+
+## Registro
+
+**POST**
+
+```
+/api/register
+```
+
+Body
+
+```json
+{
+    "name":"Emilio",
+    "email":"emilio@test.com",
+    "password":"12345678",
+    "password_confirmation":"12345678"
+}
+```
+
+### Evidencia
+
+![](img/registropost.jpg)
+
+---
+
+## Login
+
+**POST**
+
+```
+/api/login
+```
+
+Body
+
+```json
+{
+    "email":"emilio@test.com",
+    "password":"12345678"
+}
+```
+
+### Evidencia
+
+![](img/postlogin.jpg)
+
+---
+
+## Obtener productos
+
+**GET**
+
+```
+/api/productos
+```
+
+### Evidencia
+
+![](img/getproducto.jpg)
+
+---
+
+## Obtener un producto
+
+**GET**
+
+```
+/api/productos/{id}
+```
+
+### Evidencia
+
+![](img/getPRoducto2.jpg)
+
+---
+
+## Crear producto
+
+**POST**
+
+```
+/api/productos
+```
+
+Body
+
+```json
+{
+    "nombre":"Laptop Lenovo",
+    "categoria":"Tecnologia",
+    "precio":15000,
+    "stock":5,
+    "proveedor":"Lenovo"
+}
+```
+
+### Evidencia
+
+![](img/productopost.jpg)
+
+---
+
+## Actualizar producto
+
+**PUT**
+
+```
+/api/productos/{id}
+```
+
+Body
+
+```json
+{
+    "nombre":"Laptop Lenovo Legion",
+    "categoria":"Gaming",
+    "precio":20000,
+    "stock":3,
+    "proveedor":"Lenovo"
+}
+```
+
+### Evidencia
+
+![](img/putproducto.jpg)
+
+---
+
+## Eliminar producto
+
+**DELETE**
+
+```
+/api/productos/{id}
+```
+
+### Evidencia
+
+![](img/deleteproducto.jpg)
+
+---
+
+# Instalación
+
+Clonar el repositorio
+
+```bash
+git clone https://github.com/emilioreyes2219/JENRact4_t4.git
+```
+
+Entrar al proyecto
+
+```bash
+cd JENRact4_t4
+```
+
+Instalar dependencias
+
+```bash
+composer install
+```
+
+Copiar el archivo de entorno
+
+```bash
+cp .env.example .env
+```
+
+Generar la llave
+
+```bash
+php artisan key:generate
+```
+
+Ejecutar migraciones
+
+```bash
+php artisan migrate
+```
+
+Iniciar el servidor
+
+```bash
+php artisan serve
+```
+
+---
+
+# Funcionalidades
+
+- Registro de usuarios
+- Inicio de sesión
+- Autenticación mediante Laravel Sanctum
+- CRUD completo de productos
+- Validación de datos
+- Paginación de productos
+- API REST
+- Despliegue en VPS
+
+---
+
+# Autor
+
+**Jorge Emilio Núñez Reyes**
+
+Programación Web
