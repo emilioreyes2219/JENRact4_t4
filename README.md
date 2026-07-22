@@ -66,10 +66,12 @@ La autenticación se realiza mediante **Laravel Sanctum**, utilizando tokens Bea
 Después de iniciar sesión, el token obtenido debe enviarse en el encabezado:
 
 ```
-Authorization: Bearer TU_TOKEN
+Authorization: Bearer 1|zP0OPuUtYWZXJMFk2oTRIXlOBXDbBQVXZusglsyteab97b87
 ```
 
 ---
+
+
 
 # Endpoints de la API
 
