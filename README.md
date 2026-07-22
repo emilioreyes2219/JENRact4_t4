@@ -4,17 +4,25 @@
 
 **Jorge Emilio Núñez Reyes**
 
-## Repositorio
+---
+
+# Enlaces
+
+## Repositorio GitHub
 
 https://github.com/emilioreyes2219/JENRact4_t4
+
+## API desplegada en VPS
+
+http://217.15.171.252/api
 
 ---
 
 # Descripción
 
-Este proyecto consiste en el desarrollo de una API REST utilizando **Laravel 12** y **Laravel Sanctum** para la autenticación mediante tokens.
+Este proyecto consiste en el desarrollo de una **API REST** utilizando **Laravel 12** y **Laravel Sanctum** para la autenticación mediante tokens.
 
-La aplicación permite el registro e inicio de sesión de usuarios y la administración de productos mediante un CRUD completo. El proyecto fue desplegado en un VPS con Ubuntu utilizando Nginx y MySQL como servidor de base de datos.
+La aplicación permite el registro e inicio de sesión de usuarios y la administración de productos mediante un CRUD completo (Crear, Consultar, Actualizar y Eliminar). El proyecto fue desplegado en un **VPS con Ubuntu**, utilizando **Nginx**, **PHP 8.3** y **MySQL** como servidor de base de datos.
 
 ---
 
@@ -26,27 +34,26 @@ La aplicación permite el registro e inicio de sesión de usuarios y la administ
 - MySQL
 - Nginx
 - Composer
-- Git y GitHub
-- Bruno (para pruebas de la API)
+- Git
+- GitHub
+- Bruno
 - Ubuntu VPS
 
 ---
 
 # Base de datos
 
-Nombre de la base de datos:
+**Nombre de la base de datos**
 
 ```
 act4_api
 ```
 
-Tabla principal:
+**Tabla principal**
 
 ```
 productos
 ```
-
-Campos:
 
 | Campo | Tipo |
 |--------|------|
@@ -61,29 +68,35 @@ Campos:
 
 # Autenticación
 
-La autenticación se realiza mediante **Laravel Sanctum**, utilizando tokens Bearer.
+La autenticación se realiza mediante **Laravel Sanctum** utilizando **Bearer Tokens**.
 
-Después de iniciar sesión, el token obtenido debe enviarse en el encabezado:
+Después de iniciar sesión se obtiene un token que debe enviarse en cada petición protegida.
+
+Ejemplo:
 
 ```
-Authorization: Bearer 1|zP0OPuUtYWZXJMFk2oTRIXlOBXDbBQVXZusglsyteab97b87
+Authorization: Bearer TU_TOKEN
 ```
 
 ---
 
-
-
 # Endpoints de la API
 
-## Registro
+## Registro de usuario
 
-**POST**
+**Método**
 
 ```
-/api/register
+POST
 ```
 
-Body
+**URL**
+
+```
+http://217.15.171.252/api/register
+```
+
+**Body**
 
 ```json
 {
@@ -100,15 +113,21 @@ Body
 
 ---
 
-## Login
+## Inicio de sesión
 
-**POST**
+**Método**
 
 ```
-/api/login
+POST
 ```
 
-Body
+**URL**
+
+```
+http://217.15.171.252/api/login
+```
+
+**Body**
 
 ```json
 {
@@ -123,12 +142,18 @@ Body
 
 ---
 
-## Obtener productos
+## Obtener todos los productos
 
-**GET**
+**Método**
 
 ```
-/api/productos
+GET
+```
+
+**URL**
+
+```
+http://217.15.171.252/api/productos
 ```
 
 ### Evidencia
@@ -137,12 +162,18 @@ Body
 
 ---
 
-## Obtener un producto
+## Obtener un producto por ID
 
-**GET**
+**Método**
 
 ```
-/api/productos/{id}
+GET
+```
+
+**URL**
+
+```
+http://217.15.171.252/api/productos/{id}
 ```
 
 ### Evidencia
@@ -151,15 +182,21 @@ Body
 
 ---
 
-## Crear producto
+## Crear un producto
 
-**POST**
+**Método**
 
 ```
-/api/productos
+POST
 ```
 
-Body
+**URL**
+
+```
+http://217.15.171.252/api/productos
+```
+
+**Body**
 
 ```json
 {
@@ -171,21 +208,35 @@ Body
 }
 ```
 
+### Encabezados
+
+```
+Authorization: Bearer TU_TOKEN
+Accept: application/json
+Content-Type: application/json
+```
+
 ### Evidencia
 
 ![](img/productopost.jpg)
 
 ---
 
-## Actualizar producto
+## Actualizar un producto
 
-**PUT**
+**Método**
 
 ```
-/api/productos/{id}
+PUT
 ```
 
-Body
+**URL**
+
+```
+http://217.15.171.252/api/productos/{id}
+```
+
+**Body**
 
 ```json
 {
@@ -197,18 +248,39 @@ Body
 }
 ```
 
+### Encabezados
+
+```
+Authorization: Bearer TU_TOKEN
+Accept: application/json
+Content-Type: application/json
+```
+
 ### Evidencia
 
 ![](img/putproducto.jpg)
 
 ---
 
-## Eliminar producto
+## Eliminar un producto
 
-**DELETE**
+**Método**
 
 ```
-/api/productos/{id}
+DELETE
+```
+
+**URL**
+
+```
+http://217.15.171.252/api/productos/{id}
+```
+
+### Encabezados
+
+```
+Authorization: Bearer TU_TOKEN
+Accept: application/json
 ```
 
 ### Evidencia
@@ -219,43 +291,62 @@ Body
 
 # Instalación
 
-Clonar el repositorio
+## Clonar el repositorio
 
 ```bash
 git clone https://github.com/emilioreyes2219/JENRact4_t4.git
 ```
 
-Entrar al proyecto
+## Entrar al proyecto
 
 ```bash
 cd JENRact4_t4
 ```
 
-Instalar dependencias
+## Instalar dependencias
 
 ```bash
 composer install
 ```
 
-Copiar el archivo de entorno
+## Copiar el archivo de entorno
 
 ```bash
 cp .env.example .env
 ```
 
-Generar la llave
+## Configurar la conexión con MySQL
+
+Editar el archivo `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=act4_api
+DB_USERNAME=laravel
+DB_PASSWORD=TuPassword123!
+```
+
+## Generar la llave de la aplicación
 
 ```bash
 php artisan key:generate
 ```
 
-Ejecutar migraciones
+## Ejecutar las migraciones
 
 ```bash
 php artisan migrate
 ```
 
-Iniciar el servidor
+## Limpiar caché
+
+```bash
+php artisan optimize:clear
+```
+
+## Iniciar el servidor
 
 ```bash
 php artisan serve
@@ -268,11 +359,13 @@ php artisan serve
 - Registro de usuarios
 - Inicio de sesión
 - Autenticación mediante Laravel Sanctum
+- Generación de tokens
 - CRUD completo de productos
 - Validación de datos
-- Paginación de productos
+- Respuestas en formato JSON
 - API REST
-- Despliegue en VPS
+- Paginación de productos
+- Despliegue en VPS con Ubuntu
 
 ---
 
